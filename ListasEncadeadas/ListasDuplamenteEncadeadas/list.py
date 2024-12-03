@@ -21,6 +21,7 @@ class DoubleLinkedList():
             newNode.next = self.head
             self.head.prev = newNode
             self.head = newNode
+        self.length += 1
     
     def insertAtEnd(self, data):
         newNode = Node()
@@ -32,8 +33,9 @@ class DoubleLinkedList():
             current = self.head
             while current.next != None:
                 current = current.next
-            newNode.prev = current
+            newNode.prev = self.tail
             newNode.next = None
+            self.tail.next = newNode
             self.tail = newNode
         self.length += 1
     
@@ -53,7 +55,55 @@ class DoubleLinkedList():
             while count < positionToInsert and current.next != None:
                 current = current.next
                 count += 1
-            newNode.next = current.next
-            newNode.prev = current
-            current.next = newNode
-            self.length += 1
+            current.prev.next = newNode
+            newNode.prev = current.prev
+            current.prev = newNode
+            newNode.next = current
+        self.length += 1
+    
+    def deleteAtBeginning(self):
+        if self.length == 0:
+            return
+        if self.length == 1:
+            self.head = self.tail = None
+            self.length -= 1
+            return
+        self.head = self.head.next
+        self.head.prev = None
+        self.length -= 1
+    
+    def deleteAtEnd(self):
+        if self.length == 0:
+            return
+        if self.length == 1:
+            self.head = self.tail = None
+            self.length -= 1
+            return
+        self.tail = self.tail.prev
+        self.tail.next = None
+        self.length -= 1
+
+    def deleteAtPosition(self, positionToDelete):
+        if self.length == 0:
+            return
+        elif positionToDelete < 0 or positionToDelete > self.length:
+            return
+        elif positionToDelete == 0:
+            self.deleteAtBeginning()
+            return
+        elif positionToDelete == self.length:
+            self.deleteAtEnd()
+            return
+        count = 0
+        currentNode = self.head #Poderia fazer com o tail, porém seria de trás para frente
+        while count < positionToDelete:
+            currentNode = currentNode.next
+            count += 1
+        currentNode.prev.next = currentNode.next
+        self.length -= 1
+
+    def printDoubleLinkedList(self):
+        current = self.head
+        while current != None:
+            print(current.data)
+            current = current.next

@@ -77,8 +77,13 @@ class LinkedList(object):
     
     def deleteFromBeginning(self):
         if self.length != 0:
-            self.head = self.head.next
+            return
+        if self.length == 1:
+            self.head = None
             self.length -= 1
+            return
+        self.head = self.head.next
+        self.length -= 1
     
     def deleteFromEnd(self):
         if self.length != 0:
