@@ -75,6 +75,38 @@ class LinkedList(object):
         current.next = newNode
         self.length += 1
     
+    def deleteFromBeginning(self):
+        if self.length != 0:
+            self.head = self.head.next
+            self.length -= 1
+    
+    def deleteFromEnd(self):
+        if self.length != 0:
+            currentNode = self.head
+            previousNode = self.head
+            while currentNode.next != None:
+                previousNode = currentNode
+                currentNode = currentNode.next
+            previousNode.next = None
+            self.length -= 1
+    
+    def deleteAtPosition(self, positionToDelete):
+        count = 0
+        previousNode = self.head
+        currentNode = self.head
+
+        if positionToDelete > self.length or positionToDelete < 0:
+            return None
+        while count < positionToDelete:
+            count += 1
+            if count == positionToDelete:
+                previousNode.next = currentNode.next
+                self.length -= 1
+            else:
+                previousNode = currentNode
+                currentNode = currentNode.next
+
+
     def printLinkedList(self):
         current = self.head
         while current != None:
