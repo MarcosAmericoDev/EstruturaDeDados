@@ -5,23 +5,23 @@ class Node:
         self.right = None
 
 class BinaryTree:
-    def __init__(self, data=None):
+    def __init__(self, data=None, node=None):
+        if node:
+            self.root = node
         if data:
             node = Node(data) #Criação de um nó a partir de um dado
             self.root = node
         else:
             self.root = None
-            
+
     def inorder_traversal(self, node=None):
         if node is None:
             node = self.root
         if node.left:
-            print('(', end='') # Parênteses específicos para o nosso exemplo.
             self.inorder_traversal(node.left)
-        print(node.data, end='')
+        print(node.data, end=' ')
         if node.right:
             self.inorder_traversal(node.right)
-            print(')', end='')
     
     def postorder_traversel(self, node=None):
         if node is None:
@@ -45,6 +45,34 @@ class BinaryTree:
             return hright + 1
         return hleft + 1
 
+class BinarySeachTree(BinaryTree):
+    def insert(self, value):
+        parent = None
+        x = self.root
+        while(x):
+            parent = x
+            if value < x.data:
+                x = x.left
+            else:
+                x = x.right
+        if self.root is None:
+            self.root = Node(value)
+        elif value < parent.data:
+            parent.left = Node(value)
+        else: 
+            parent.right = Node(value)
+
+    def search(self, value):
+        return self._search(value, self.root)
+    
+    def _search(self, value, node):
+        if node is None:
+            return node
+        if node.data == value:
+            return BinarySeachTree(node.data)
+        if value < node.data:
+            return self._search(value, node.left)
+        return self._search(value, node.right)
 
 if __name__ == "__main__":
     tree = BinaryTree()
