@@ -11,17 +11,16 @@ class BinaryTree:
             self.root = node
         else:
             self.root = None
-    
-    # percurso em ordem simétrica (inorder)
-    def simetric_traversal(self, node=None):
+            
+    def inorder_traversal(self, node=None):
         if node is None:
             node = self.root
         if node.left:
             print('(', end='') # Parênteses específicos para o nosso exemplo.
-            self.simetric_traversal(node.left)
+            self.inorder_traversal(node.left)
         print(node.data, end='')
         if node.right:
-            self.simetric_traversal(node.right)
+            self.inorder_traversal(node.right)
             print(')', end='')
     
     def postorder_traversel(self, node=None):
