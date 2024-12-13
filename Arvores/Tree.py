@@ -17,8 +17,8 @@ class BinaryTree:
         else:
             self.root = None
 
-    def inorder_traversal(self, node=None):
-        if node is None:
+    def inorder_traversal(self, node=ROOT):
+        if node is ROOT:
             node = self.root
         if node.left:
             self.inorder_traversal(node.left)
@@ -26,8 +26,8 @@ class BinaryTree:
         if node.right:
             self.inorder_traversal(node.right)
     
-    def postorder_traversal(self, node=None):
-        if node is None:
+    def postorder_traversal(self, node=ROOT):
+        if node is ROOT:
             node = self.root
         if node.left:
             self.postorder_traversal(node.left)
@@ -35,8 +35,8 @@ class BinaryTree:
             self.postorder_traversal(node.right)
         print(node.data)
     
-    def height(self, node=None):
-        if node is None:
+    def height(self, node=ROOT):
+        if node is ROOT:
             node = self.root
         hleft = 0
         hright = 0
@@ -78,11 +78,10 @@ class BinarySeachTree(BinaryTree):
             parent.left = TreeNode(value)
         else: 
             parent.right = TreeNode(value)
-
-    def search(self, value):
-        return self._search(value, self.root)
     
-    def _search(self, value, node):
+    def search(self, value, node=ROOT):
+        if node is ROOT:
+            node = self.root
         if node is None:
             return node
         if node.data == value:
@@ -115,5 +114,5 @@ if __name__ == "__main__":
     n8.right = n7
 
     tree.root = n10
-    tree.postorder_traversel()
+    tree.postorder_traversal()
     print("Altura:", tree.height(n5))
