@@ -1,4 +1,4 @@
-class Node:
+class TreeNode:
     def __init__(self, data):
         self.data = data
         self.left = None
@@ -9,7 +9,7 @@ class BinaryTree:
         if node:
             self.root = node
         if data:
-            node = Node(data) #Criação de um nó a partir de um dado
+            node = TreeNode(data) #Criação de um nó a partir de um dado
             self.root = node
         else:
             self.root = None
@@ -56,11 +56,11 @@ class BinarySeachTree(BinaryTree):
             else:
                 x = x.right
         if self.root is None:
-            self.root = Node(value)
+            self.root = TreeNode(value)
         elif value < parent.data:
-            parent.left = Node(value)
+            parent.left = TreeNode(value)
         else: 
-            parent.right = Node(value)
+            parent.right = TreeNode(value)
 
     def search(self, value):
         return self._search(value, self.root)
@@ -76,16 +76,16 @@ class BinarySeachTree(BinaryTree):
 
 if __name__ == "__main__":
     tree = BinaryTree()
-    n1 = Node('I')
-    n2 = Node('N')
-    n3 = Node('S')
-    n4 = Node('C')
-    n5 = Node('R')
-    n6 = Node('E')
-    n7 = Node('V')
-    n8 = Node('A')
-    n9 = Node('5')
-    n10 = Node('3')
+    n1 = TreeNode('I')
+    n2 = TreeNode('N')
+    n3 = TreeNode('S')
+    n4 = TreeNode('C')
+    n5 = TreeNode('R')
+    n6 = TreeNode('E')
+    n7 = TreeNode('V')
+    n8 = TreeNode('A')
+    n9 = TreeNode('5')
+    n10 = TreeNode('3')
 
     n10.left = n6
     n10.right = n9
