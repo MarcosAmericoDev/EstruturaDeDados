@@ -89,6 +89,20 @@ class BinarySeachTree(BinaryTree):
         if value < node.data:
             return self._search(value, node.left)
         return self._search(value, node.right)
+    
+    def min(self, node=ROOT):
+        if node is ROOT:
+            node = self.root
+        while node.left:
+            node = node.left
+        return node.data
+    
+    def max(self, node=ROOT):
+        if node is ROOT:
+            node = self.root
+        while node.right:
+            node = node.right
+        return node.data
 
 if __name__ == "__main__":
     tree = BinaryTree()

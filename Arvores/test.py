@@ -12,3 +12,6 @@ for v in values:
 tree.inorder_traversal()
 print("\n------")
 tree.levelorder_traversal()
+print("\n------")
+print("Máximo:", tree.max())
+print("Mínimo:", tree.min())
