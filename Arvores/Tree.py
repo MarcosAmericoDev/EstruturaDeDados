@@ -1,3 +1,6 @@
+from Queue import Queue
+
+ROOT = "root"
 class TreeNode:
     def __init__(self, data):
         self.data = data
@@ -23,13 +26,13 @@ class BinaryTree:
         if node.right:
             self.inorder_traversal(node.right)
     
-    def postorder_traversel(self, node=None):
+    def postorder_traversal(self, node=None):
         if node is None:
             node = self.root
         if node.left:
-            self.postorder_traversel(node.left)
+            self.postorder_traversal(node.left)
         if node.right:
-            self.postorder_traversel(node.right)
+            self.postorder_traversal(node.right)
         print(node.data)
     
     def height(self, node=None):
@@ -44,6 +47,20 @@ class BinaryTree:
         if hright > hleft:
             return hright + 1
         return hleft + 1
+    
+    def levelorder_traversal(self, node=ROOT):
+        if node is ROOT:
+            node = self.root
+
+        queue = Queue()
+        queue.enQueue(node)
+        while not queue.isEmpty():
+            node = queue.deQueue()
+            if node.left:
+                queue.enQueue(node.left)
+            if node.right:
+                queue.enQueue(node.right)
+            print(node.data, end=" ")
 
 class BinarySeachTree(BinaryTree):
     def insert(self, value):
