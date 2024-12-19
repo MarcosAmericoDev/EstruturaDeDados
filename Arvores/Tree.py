@@ -114,8 +114,8 @@ class BinarySeachTree(BinaryTree):
         if node.data == value:
             return BinarySeachTree(node.data)
         if value < node.data:
-            return self._search(value, node.left)
-        return self._search(value, node.right)
+            return self.search(value, node.left)
+        return self.search(value, node.right)
     
     def min(self, node=ROOT):
         if node is ROOT:
