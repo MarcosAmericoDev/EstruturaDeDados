@@ -9,6 +9,7 @@ tree = BinarySeachTree()
 for v in values:
     tree.insert(v)
 
+print(tree.height())
 tree.inorder_traversal()
 print("\n------")
 tree.levelorder_traversal()

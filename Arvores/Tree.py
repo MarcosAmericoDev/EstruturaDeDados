@@ -44,9 +44,8 @@ class BinaryTree:
             hleft = self.height(node.left)
         if node.right:
             hright = self.height(node.right)
-        if hright > hleft:
-            return hright + 1
-        return hleft + 1
+        return max(hleft, hright) + 1
+
     
     def levelorder_traversal(self, node=ROOT):
         if node is ROOT:
@@ -61,6 +60,34 @@ class BinaryTree:
             if node.right:
                 queue.enQueue(node.right)
             print(node.data, end=" ")
+    
+    def recursiveSearch(self, serchingValue, node=ROOT):
+        if node is ROOT:
+            node = self.root
+        if node.data == serchingValue:
+            print(serchingValue, "encontrado")
+            return 
+        if node.left:
+            self.recursiveSearch(serchingValue, node.left)
+        if node.right:
+            self.recursiveSearch(serchingValue, node.right)
+    
+    def interactiveSearch(self, valueToSearch, node=ROOT):
+        if node is ROOT:
+            node = self.root
+        queue = Queue()
+        queue.enQueue(node)
+        while not queue.isEmpty():
+            node = queue.deQueue()
+            if node.data == valueToSearch:
+                print(valueToSearch, "encontrado!")
+                return
+            if node.left:
+                queue.enQueue(node.left)
+            if node.right:
+                queue.enQueue(node.right)
+        
+
 
 class BinarySeachTree(BinaryTree):
     def insert(self, value):
