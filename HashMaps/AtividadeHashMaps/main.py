@@ -1,3 +1,5 @@
+
+
 ### Algoritmos de função hash
 
 # Somatório
@@ -26,12 +28,24 @@ def hash_ciclic(s):
         hash_value += ord(c)
     return hash_value
 
+### Algoritmos de Compressão
+
+# Compressão por divisão
+def compression_division(map):
+    for key in list(map.keys()):
+        value = map.pop(key)
+        map[key%32] = value
+    return map
+
 # Strings utilizadas para o teste
-strings = [ "apple", "voadora", "banjo", "banana", "cherry", "date",
-"elderberry", "fig", "grape", "honeydew", "kiwi", "xuru", "runin", "xamã",
-"mirtilho", "lemon", "mango", "nectarine", "orange", "papaya", "quince",
-"raspberry", "strawberry", "tangerine", "ugli", "voavanga", "maravilha",
-"IFCE", "maracanaú", "ceará", "manga", "rendemption", "bobo", "maluco" ]
+
 
 if __name__ == "__main__":
-    print(hash_ciclic("spot"))
+    strings = [ "apple", "voadora", "banjo", "banana", "cherry", "date",
+    "elderberry", "fig", "grape", "honeydew", "kiwi", "xuru", "runin", "xamã",
+    "mirtilho", "lemon", "mango", "nectarine", "orange", "papaya", "quince",
+    "raspberry", "strawberry", "tangerine", "ugli", "voavanga", "maravilha",
+    "IFCE", "maracanaú", "ceará", "manga", "rendemption", "bobo", "maluco" ]
+    map = {}
+    for string in strings:
+        map[hash_sum(string)] = string
