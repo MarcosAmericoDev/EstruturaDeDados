@@ -1,4 +1,4 @@
-
+from Queue import Queue, QueueNode
 
 ### Algoritmos de função hash
 
@@ -51,10 +51,21 @@ def compression_fold(map):
                 sum2 = int(stringKey[i+1]) + int(stringKey[i+2])
                 compressed_key += str(sum1 % 10) + str(sum2 % 10)
             stringKey = compressed_key
-        key = int(stringKey)
-        map[key%32] = keyValue
+        key = int(stringKey) % 32 # tabela de tamanho 32
+        map[key] = keyValue
     return map
 
+# Compressão por MAD
+def compression_mad(map):
+    # Fará seguindo essa fórmula = [(a * numero_da_chave + b) mod numero_primo] mod tamanho_da_tabela
+    primeNumber = 1693
+    a = 46
+    b = 747
+    for key in list(map.keys()):
+        keyValue = map.pop(key)
+        compressed_key = ((a*key + b) % primeNumber) % 32
+        map[compressed_key] = keyValue
+    return map
 
 # Strings utilizadas para o teste
 if __name__ == "__main__":
@@ -68,4 +79,4 @@ if __name__ == "__main__":
         map[hash_sum(string)] = string
     print(map)
     print("---------")
-    print(compression_fold(map))
+    print(compression_mad(map))
