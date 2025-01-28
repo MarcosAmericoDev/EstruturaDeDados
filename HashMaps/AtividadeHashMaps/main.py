@@ -32,13 +32,22 @@ def hash_ciclic(s):
 
 # Compressão por divisão
 def compression_division(map):
+    collision_count = 0
     for key in list(map.keys()):
-        value = map.pop(key)
-        map[key%32] = value
-    return map
+        keyValue = map.pop(key)
+        compressed_key = key % 32
+        if compressed_key in map.keys():
+            map[compressed_key].enQueue(keyValue)
+            collision_count += 1
+        else:
+            queue = Queue()
+            queue.enQueue(keyValue)
+            map[compressed_key] = queue
+    return map, collision_count
 
 # Compressão por dobra
 def compression_fold(map):
+    collision_count = 0
     for key in list(map.keys()):
         keyValue = map.pop(key)
         stringKey = str(key)
@@ -52,8 +61,14 @@ def compression_fold(map):
                 compressed_key += str(sum1 % 10) + str(sum2 % 10)
             stringKey = compressed_key
         key = int(stringKey) % 32 # tabela de tamanho 32
-        map[key] = keyValue
-    return map
+        if key in map.keys():
+            map[key].enQueue(keyValue)
+            collision_count += 1
+        else:
+            queue = Queue()
+            queue.enQueue(keyValue)
+            map[key] = queue
+    return map, collision_count
 
 # Compressão por MAD
 def compression_mad(map):
@@ -61,11 +76,18 @@ def compression_mad(map):
     primeNumber = 1693
     a = 46
     b = 747
+    collision_count = 0
     for key in list(map.keys()):
         keyValue = map.pop(key)
         compressed_key = ((a*key + b) % primeNumber) % 32
-        map[compressed_key] = keyValue
-    return map
+        if compressed_key in map.keys():
+            map[compressed_key].enQueue(keyValue)
+            collision_count += 1
+        else:
+            queue = Queue()
+            queue.enQueue(keyValue)
+            map[compressed_key] = queue
+    return map, collision_count
 
 # Strings utilizadas para o teste
 if __name__ == "__main__":
@@ -79,4 +101,6 @@ if __name__ == "__main__":
         map[hash_sum(string)] = string
     print(map)
     print("---------")
-    print(compression_mad(map))
+    newmap, collision_count = compression_fold(map)
+    print(newmap[17].printQueue())
+    print(collision_count)
