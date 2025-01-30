@@ -1,4 +1,5 @@
 from Queue import Queue, QueueNode
+import time
 
 ### Algoritmos de função hash
 
@@ -56,9 +57,10 @@ def compression_fold(map):
         while len(stringKey) > 2:
             compressed_key = ""
             for i in range(0, len(stringKey), 4):
-                sum1 = int(stringKey[i]) + int(stringKey[i+3])
-                sum2 = int(stringKey[i+1]) + int(stringKey[i+2])
-                compressed_key += str(sum1 % 10) + str(sum2 % 10)
+                if i + 3 < len(stringKey): 
+                    sum1 = int(stringKey[i]) + int(stringKey[i+3])
+                    sum2 = int(stringKey[i+1]) + int(stringKey[i+2])
+                    compressed_key += str(sum1 % 10) + str(sum2 % 10)
             stringKey = compressed_key
         key = int(stringKey) % 32 # tabela de tamanho 32
         if key in map.keys():
@@ -97,10 +99,14 @@ if __name__ == "__main__":
     "raspberry", "strawberry", "tangerine", "ugli", "voavanga", "maravilha",
     "IFCE", "maracanaú", "ceará", "manga", "rendemption", "bobo", "maluco" ]
     map = {}
+    inicio1 = time.perf_counter()
     for string in strings:
-        map[hash_sum(string)] = string
-    print(map)
+        map[hash_ciclic(string)] = string
+    fim1 = time.perf_counter()
+    print(f"Tempo de execução dispersão: {fim1 - inicio1:.5f} segundos")
     print("---------")
-    newmap, collision_count = compression_fold(map)
-    print(newmap[17].printQueue())
-    print(collision_count)
+    inicio2 = time.perf_counter()
+    newmap, collision_count = compression_mad(map)
+    fim2 = time.perf_counter()
+    print(f"Tempo de execução compressão: {fim1 - inicio1:.5f} segundos")
+    print(f"Número de colisões: {collision_count}")
